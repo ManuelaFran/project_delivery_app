@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
-const jwt = require('./utils/jwt');
+const jwt = require('../utils/jwt');
 
 class LoginService {
     constructor() {
@@ -10,10 +10,10 @@ class LoginService {
     async login(obj) {
         const { email, password } = obj;
         const hash = md5(password);
-        const result = await this.user.findOne({ where: { email, password: hash } });
+        const result = await this.user.findOne({ where: { email, password: hash }, raw: true });
         if (!result) {
             const err = new Error('Email or password not found');
-            err.name = 'notFound';
+            err.name = 'NotFoundError';
             throw err;
         }
         const token = jwt.sing(result);
