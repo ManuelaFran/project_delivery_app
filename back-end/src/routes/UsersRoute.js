@@ -1,13 +1,12 @@
 const { Router } = require('express');
-const UserService = require('../services/UserService');
 const UserController = require('../controllers/UserController');
+const UserService = require('../services/UserService');
 
 const route = Router();
 
-const userService = new UserService();
+const userService = new UserService()
 const userController = new UserController(userService);
 
-// route.get('/login', userController.findAll);
-route.get('/user', userController.findAll);
+route.get('/', userController.findAll);
 
 module.exports = route;

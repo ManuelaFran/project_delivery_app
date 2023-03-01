@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import RegisterProvider from './contexts/RegisterContext/RegisterProvider';
+import LoginProvider from './contexts/LoginContext/LoginProvider';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
@@ -8,7 +10,11 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <LoginProvider>
+        <RegisterProvider>
+          <App />
+        </RegisterProvider>
+      </LoginProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
