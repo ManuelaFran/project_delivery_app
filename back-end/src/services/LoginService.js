@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
-const jwt = require('../utils/jwt');
+const { createToken } = require('../utils/jwt'); 
 
 const login = async ({ password, email }) => {
   const hash = md5(password);
@@ -13,7 +13,7 @@ const login = async ({ password, email }) => {
     err.name = 'NotFoundError';
     throw err;
   }
-  const token = jwt.sing({ name: result.name, email: result.email, role: result.role });
+  const token = createToken({ name: result.name, email: result.email, role: result.role });
   return token;
 };
 
