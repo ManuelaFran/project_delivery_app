@@ -1,18 +1,17 @@
-class ValidateUser {
-  constructor(service) {
-    this.service = service;
-    this.validateUserExists = this.validateUserExists.bind(this);
-  }
+const userService = require('../services/UserService');
 
-  async validateUserExists(req, _res, next) {
-    const user = await this.service.findOne(req.body.email);
-    if (user) {
-      const err = new Error('Existing user');
-      err.name = 'ConflictError';
-      throw err;
-    }
-    next();
+const validateUserExists = async (req, _res, next) => {
+  const { email } = req.body;
+  const user = await userService.findOneEmail(email);
+  console.log(user);
+  if (user) {
+    const err = new Error('User already registered');
+    err.name = 'ConflictError';
+    throw err;
   }
-}
+  return next();
+};
 
-module.exports = ValidateUser;
+module.exports = {
+    validateUserExists,
+};

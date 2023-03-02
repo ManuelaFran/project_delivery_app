@@ -1,14 +1,10 @@
-class LoginController {
-    constructor(service) {
-        this.service = service;
-        this.login = this.login.bind(this);
-    }
+const loginService = require('../services/LoginService');
 
-    async login(req, res) {
-        const data = req.body;
-        const token = await this.service.login(data);
-        return res.status(200).json({ token });
-    }
-}
+const login = async (req, res) => {
+  const token = await loginService.login(req.body);
+  return res.status(200).json({ token });
+};
 
-module.exports = LoginController;
+module.exports = {
+    login,
+};

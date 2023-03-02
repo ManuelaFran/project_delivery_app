@@ -16,13 +16,12 @@ function Register() {
 
   useEffect(() => {
     if (resultRegister.status === CREATESTATUS) {
-      navigate('/client');
+      navigate('/customer/products');
     }
   });
 
   return (
     <div>
-      {console.log(registerInfo)}
       <form action="">
         <label htmlFor="name">
           Nome
@@ -72,7 +71,7 @@ function Register() {
           CADASTRAR
         </button>
       </form>
-      <span data-testid="common_register__element-invalid_register ">
+      <span data-testid="common_register__element-invalid_register">
         {resultRegister.error}
       </span>
     </div>

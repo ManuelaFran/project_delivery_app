@@ -11,7 +11,6 @@ function LoginProvider({ children }) {
   });
 
   const handlerLogin = useCallback(async ({ email, password }) => {
-    console.log(email, password);
     try {
       const response = await axios.post('http://localhost:3001/login', {
         email,
