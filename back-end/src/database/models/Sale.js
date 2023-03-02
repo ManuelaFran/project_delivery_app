@@ -56,12 +56,12 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "sellerId",
     });
 
-    Sale.belongsToMany(models.Product, {
-      through: "SaleProduct",
-      as: "products",
-      foreignKey: "saleId",
-    });
+    // Sale.belongsToMany(models.Product, {
+    //   through: "SaleProduct",
+    //   as: "products",
+    //   foreignKey: "saleId",
+    // });
   };
 
-  return BlogPost;
+  return Sale;
 };
