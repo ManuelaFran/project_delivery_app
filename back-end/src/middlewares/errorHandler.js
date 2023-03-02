@@ -1,25 +1,15 @@
 const errorHandler = (err, _req, res, _next) => {
-    const { name, message } = err;
-  
-    switch (name) {
-      case 'ValidationError':
-        res.status(400).json({ message });
-        break;
-      case 'NotFoundError':
-        res.status(404).json({ message });
-        break;
-      case 'UnauthorizedError':
-        res.status(401).json({ message });
-        break;
-      case 'ConflictError':
-        res.status(409).json({ message });
-        break;
-      case 'InternalServerError':
-        res.status(500).json({ message });
-        break;
-      default:
-        res.status(500).json({ message });
-    }
+  const errorTypes = {
+    ValidationError: 400,
+    NotFoundError: 404,
+    UnauthorizedError: 401,
+    ConflictError: 409,
   };
-  
-  module.exports = errorHandler;
+
+  const status = errorTypes[err.name] || 500;
+  const message = err.message || 'Internal Server Error';
+
+  return res.status(status).json({ message });
+};
+
+module.exports = errorHandler;

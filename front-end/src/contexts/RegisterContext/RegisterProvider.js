@@ -53,10 +53,11 @@ function RegisterProvider({ children }) {
   const handleRegister = useCallback(async () => {
     try {
       const { name, email, password } = registerInfo;
-      const response = await axios.post('', { name, email, password });
+      const response = await axios.post('http://localhost:3001/user/register', { name, email, password });
+      localStorage.setItem('token', response.data.token);
       setResultRegister({
         status: response.status,
-        response: response.data,
+        response: response.data.token,
         error: '',
       });
     } catch (error) {
