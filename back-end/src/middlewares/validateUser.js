@@ -7,8 +7,8 @@ class ValidateUser {
   async validateUserExists(req, _res, next) {
     const user = await this.service.findOne(req.body.email);
     if (user) {
-      const err = new Error("Existing user");
-      err.name = "ConflictError";
+      const err = new Error('Existing user');
+      err.name = 'ConflictError';
       throw err;
     }
     next();

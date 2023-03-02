@@ -16,7 +16,7 @@ const errorHandler = (err, _req, res, _next) => {
         break;
       case 'InternalServerError':
         res.status(500).json({ message });
-        break
+        break;
       default:
         res.status(500).json({ message });
     }
