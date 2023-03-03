@@ -26,6 +26,5 @@ export default function NavCustomerProducts() {
       </Link>
       {' '}
     </div>
-
   );
 }
