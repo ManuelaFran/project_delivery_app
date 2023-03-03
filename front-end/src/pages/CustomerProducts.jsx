@@ -24,7 +24,7 @@ export default function CustomerProducts() {
       const headers = { headers: { authorization: client.user.token } };
       try {
         const allProducts = await axios.get(
-          'http://localhost:3001/products',
+          'http://localhost:3001/product',
           headers,
         );
         setProducts(allProducts.data);
@@ -59,7 +59,6 @@ export default function CustomerProducts() {
           <p>Carrinho vazio</p>
         ) : (
           <p data-testid="customer_products__checkout-bottom-value">
-            Ver carrinho: R$
             <span>{cartValue.toFixed(2).toString().replace('.', ',')}</span>
           </p>
         )}

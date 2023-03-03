@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from '../contexts/CartContext/CartContext';
 
@@ -42,6 +42,7 @@ export default function ProductCard({ productDetails }) {
         className="product-card-image"
         src={ urlImage }
         alt={ name }
+        style={ { width: '60px' } }
       />
       <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
       <button

@@ -9,20 +9,19 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear();// limpa localStorage depois do logout
+    localStorage.removeItem('user');// limpa localStorage depois do logout
     navigate('/');
   };
 
   return (
     <nav>
-      {user.role === 'customer' && <NavCustomerProducts />}
+      {client.user.role === 'customer' && <NavCustomerProducts />}
       {/* {role === 'seller' && <NavSellerOrder />} */}
       {/* {role === 'admin' && <NavManage />} */}
       <p
         data-testid="customer_products__element-navbar-user-full-name"
       >
         {`${client.user.name}`}
-
       </p>
       <button
         data-testid="customer_products__element-navbar-link-logout"
