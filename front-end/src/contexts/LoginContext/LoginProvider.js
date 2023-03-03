@@ -16,14 +16,12 @@ function LoginProvider({ children }) {
         email,
         password,
       });
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data));
       setResultLogin({
         status: response.status,
         token: response.data.token,
         error: '',
       });
-
-      console.log(response);
     } catch (error) {
       setResultLogin({
         status: '',

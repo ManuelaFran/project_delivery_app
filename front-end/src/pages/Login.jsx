@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LoginContext from '../contexts/LoginContext/LoginContext';
+import { AppContext } from '../contexts/GlobalContext/GlobalContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { resultLogin, handlerLogin } = useContext(LoginContext);
+  const { resultLogin, handlerLogin } = useContext(AppContext);
 
   const verifyEmail = () => /\S+@\S+\.\S+/.test(email);
 

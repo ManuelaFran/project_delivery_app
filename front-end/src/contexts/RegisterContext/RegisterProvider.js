@@ -54,7 +54,7 @@ function RegisterProvider({ children }) {
     try {
       const { name, email, password } = registerInfo;
       const response = await axios.post('http://localhost:3001/user/register', { name, email, password });
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data));
       setResultRegister({
         status: response.status,
         response: response.data.token,

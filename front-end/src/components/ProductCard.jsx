@@ -1,25 +1,45 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import CartContext from '../contexts/ProductsContext/CartContext';
 
 export default function ProductCard({ productDetails }) {
+  const { cart, setCart } = useContext(CartContext);
   const [quantity, setQuantity] = useState(0);
   const { name, price, urlImage, id } = productDetails;
+
+  const modifyCart = () => {
+    const findProduct = cart.find((product) => product.id === id);
+    if (!quantity && !findProduct) return; // não executa função
+    if (!findProduct) return setCart([...cart, { ...productDetails, quantity }]); // add
+    const oldCart = cart;
+    const newCart = oldCart.filter((product) => product.id !== id);
+    if (!quantity) return setCart(newCart); // remove
+    setCart([...newCart, { ...productDetails, quantity }]); // atualiza
+  };
+
   const removeProducts = () => {
-    setQuantity((prevState) => (
-      prevState - 1
-    ));
+    if (quantity <= 1) return setQuantity(0);
+    setQuantity((prevState) => (prevState - 1));
   };
-  const addProducts = () => {
-    setQuantity((prevState) => (
-      prevState + 1
-    ));
-  };
+
+  const addProducts = () => (setQuantity((prevState) => (prevState + 1)));
+
+  useEffect(() => {
+    modifyCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity]);
 
   return (
     <div>
       <p data-testid={ `customer_products__element-card-price-${id}` }>{price}</p>
+      <p
+        data-testid={ `customer_products__element-card-price-${id}` }
+      >
+        {(Number(price).toFixed(2).toString()).replace('.', ',')}
+      </p>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
+        className="product-card-image"
         src={ urlImage }
         alt={ name }
       />
@@ -34,7 +54,8 @@ export default function ProductCard({ productDetails }) {
       <input
         type="number"
         value={ quantity }
-        onChange={ ({ target }) => setQuantity(target.value) }
+        min="0"
+        onChange={ ({ target }) => setQuantity(Number(target.value)) }
         data-testid={ `customer_products__input-card-quantity-${id}` }
       />
       <button
@@ -49,10 +70,10 @@ export default function ProductCard({ productDetails }) {
 }
 
 ProductCard.propTypes = {
-  productDetails: PropTypes.objectOf({
+  productDetails: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.string,
     urlImage: PropTypes.string,
   }).isRequired,
 };

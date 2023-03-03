@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RegisterContext from '../contexts/RegisterContext/RegisterContext';
+import { AppContext } from '../contexts/GlobalContext/GlobalContext';
 
 const CREATESTATUS = 201;
 
@@ -10,7 +10,7 @@ function Register() {
     handleRegisterInfoChange,
     handleRegister,
     resultRegister,
-  } = useContext(RegisterContext);
+  } = useContext(AppContext);
 
   const navigate = useNavigate();
 

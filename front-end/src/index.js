@@ -1,20 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import RegisterProvider from './contexts/RegisterContext/RegisterProvider';
-import LoginProvider from './contexts/LoginContext/LoginProvider';
 import reportWebVitals from './reportWebVitals';
+import { AppContextProvider } from './contexts/GlobalContext/GlobalContext';
 import './index.css';
 import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoginProvider>
-        <RegisterProvider>
-          <App />
-        </RegisterProvider>
-      </LoginProvider>
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
