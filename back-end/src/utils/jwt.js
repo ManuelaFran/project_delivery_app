@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const secret = "secret_key";
+const secret = 'secret_key';
 
 const jwtConfig = {
-  algorithm: "HS256",
-  expiresIn: "30min",
+  algorithm: 'HS256',
+  expiresIn: '2h',
 };
 
 const createToken = (user) => {
@@ -17,7 +17,7 @@ const verifyToken = (token) => {
     const payload = jwt.verify(token, secret);
     return payload;
   } catch (error) {
-    error.name = "UnauthorizedError";
+    error.name = 'UnauthorizedError';
     error.message = 'unauthorized client';
     throw error;
   }

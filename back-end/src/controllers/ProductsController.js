@@ -1,4 +1,4 @@
-const productsService = require("../services/ProductsService");
+const productsService = require('../services/ProductsService');
 
 const findAll = async (req, res) => {
   const products = await productsService.findAll();
@@ -7,4 +7,4 @@ const findAll = async (req, res) => {
 
 module.exports = {
     findAll,
-}
+};
