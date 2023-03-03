@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { object } from 'prop-types';
 import React, { useState, useMemo, useCallback } from 'react';
-import RegisterContext from './RegisterContext';
+import LoginContext from './UserContext';
 
 const NUMBER_5 = 5;
 const NUMBER_12 = 12;
 
-function RegisterProvider({ children }) {
+function UserProvider({ children }) {
+  const [client, setClient] = useState({
+    status: '',
+    user: '',
+    error: '',
+  });
+
   const [registerInfo, setRegisterInfo] = useState({
     name: '',
     email: '',
     password: '',
     valid: false,
-  });
-
-  const [resultRegister, setResultRegister] = useState({
-    status: '',
-    response: '',
-    error: '',
   });
 
   const validateEmail = useCallback(
@@ -42,9 +42,17 @@ function RegisterProvider({ children }) {
     (event) => {
       const { name, value } = event.target;
       if (validateRegister()) {
-        setRegisterInfo((prevState) => ({ ...prevState, [name]: value, valid: true }));
+        setRegisterInfo((prevState) => ({
+          ...prevState,
+          [name]: value,
+          valid: true,
+        }));
       } else {
-        setRegisterInfo((prevState) => ({ ...prevState, [name]: value, valid: false }));
+        setRegisterInfo((prevState) => ({
+          ...prevState,
+          [name]: value,
+          valid: false,
+        }));
       }
     },
     [validateRegister],
@@ -53,41 +61,74 @@ function RegisterProvider({ children }) {
   const handleRegister = useCallback(async () => {
     try {
       const { name, email, password } = registerInfo;
-      const response = await axios.post('http://localhost:3001/user/register', { name, email, password });
+      const response = await axios.post('http://localhost:3001/user/register', {
+        name,
+        email,
+        password,
+      });
       localStorage.setItem('user', JSON.stringify(response.data));
-      setResultRegister({
+      setClient({
         status: response.status,
-        response: response.data.token,
+        user: response.data,
         error: '',
       });
     } catch (error) {
-      setResultRegister({
-        status: '',
-        response: '',
+      setClient({
+        status: error.status,
+        user: '',
         error: error.message,
       });
     }
   }, [registerInfo]);
 
+  const handlerLogin = useCallback(async ({ email, password }) => {
+    try {
+      const response = await axios.post('http://localhost:3001/login', {
+        email,
+        password,
+      });
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setClient({
+        status: response.status,
+        user: response.data,
+        error: '',
+      });
+    } catch (error) {
+      console.log(error.message);
+      setClient({
+        status: error.status,
+        user: '',
+        error: error.message,
+      });
+    }
+  }, []);
+
   const memoizedValue = useMemo(
     () => ({
+      handlerLogin,
       registerInfo,
       handleRegisterInfoChange,
       handleRegister,
-      resultRegister,
+      client,
     }),
-    [registerInfo, handleRegisterInfoChange, handleRegister, resultRegister],
+    [
+      handlerLogin,
+      registerInfo,
+      handleRegisterInfoChange,
+      handleRegister,
+      client,
+    ],
   );
 
   return (
-    <RegisterContext.Provider value={ memoizedValue }>
+    <LoginContext.Provider value={ memoizedValue }>
       {children}
-    </RegisterContext.Provider>
+    </LoginContext.Provider>
   );
 }
 
-RegisterProvider.propTypes = {
+UserProvider.propTypes = {
   children: object,
 }.isrequired;
 
-export default RegisterProvider;
+export default UserProvider;

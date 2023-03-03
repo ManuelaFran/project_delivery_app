@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import CartContext from '../contexts/ProductsContext/CartContext';
+import CartContext from '../contexts/CartContext/CartContext';
 
 export default function ProductCard({ productDetails }) {
   const { cart, setCart } = useContext(CartContext);

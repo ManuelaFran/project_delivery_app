@@ -3,19 +3,18 @@ import { Link } from 'react-router-dom';
 
 export default function NavSellerOrder() {
   return (
-    <>
-      <Link
-        data-testid="customer_products__element-navbar-link-products"
-        to="/customer/products"
-      >
-        Produtos
-      </Link>
+    <div className="navbar-customer">
+      {' '}
       <Link
         data-testid="customer_products__element-navbar-link-orders"
-        to="/customer/orders"
+        className="navbar-pedidos"
+        to="/seller/orders"
       >
-        Meus Pedidos
+        {' '}
+        Pedidos
+        {' '}
       </Link>
-    </>
+      {' '}
+    </div>
   );
 }

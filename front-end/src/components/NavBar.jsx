@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavCustomerProducts from './NavCustomerProducts';
+import UserContext from '../contexts/UserContext/UserContext';
 
 export default function Navbar() {
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    role: '',
-    token: '',
-  });
+  const { client } = useContext(UserContext);
 
-  useEffect(() => {
-    const data = localStorage.getItem('user');
-    setUser(JSON.parse(data));
-  }, []);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -23,13 +15,13 @@ export default function Navbar() {
 
   return (
     <nav>
-      {/* {user.role === 'customer' && <NavCustomerProducts />} */}
+      {user.role === 'customer' && <NavCustomerProducts />}
       {/* {role === 'seller' && <NavSellerOrder />} */}
       {/* {role === 'admin' && <NavManage />} */}
       <p
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        {/* {`${user.name}`} */}
+        {`${client.user.name}`}
 
       </p>
       <button

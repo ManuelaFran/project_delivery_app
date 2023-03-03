@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../contexts/GlobalContext/GlobalContext';
+import UserContext from '../contexts/UserContext/UserContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { resultLogin, handlerLogin } = useContext(AppContext);
+  const { client, handlerLogin } = useContext(UserContext);
 
   const verifyEmail = () => /\S+@\S+\.\S+/.test(email);
 
@@ -23,11 +23,11 @@ function Login() {
 
   useEffect(() => {
     verifyInputs();
-    if (resultLogin.token) {
+    if (client.user.token) {
       navigate('/customer/products');
     }
     // eslint-disable-next-line
-  }, [email, password, resultLogin]);
+  }, [email, password, client]);
 
   const clickLogin = () => {
     setEmail('');
@@ -91,7 +91,7 @@ function Login() {
           Ainda não tenho conta
         </button>
       </form>
-      <span data-testid="common_login__element-invalid-email">{resultLogin.error}</span>
+      <span data-testid="common_login__element-invalid-email">{client.error}</span>
     </div>
   );
 }
