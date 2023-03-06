@@ -40,13 +40,15 @@ export default function CustomerProducts() {
   return (
     <div>
       <Navbar />
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
-        products?.map((product) => (
-          <ProductCard key={ product.id } productDetails={ product } />
-        ))
-      )}
+      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : (
+          products?.map((product) => (
+            <ProductCard key={ product.id } productDetails={ product } />
+          ))
+        )}
+      </div>
       {productsError !== '' && <span>{productsError}</span>}
       <button
         type="button"
@@ -55,21 +57,13 @@ export default function CustomerProducts() {
         disabled={ !cartValue }
         onClick={ handleCheckout }
       >
-        {/* {!cartValue ? (
-          <p>Carrinho vazio</p>
+        {!cartValue ? (
+          <p />
         ) : (
           <p data-testid="customer_products__checkout-bottom-value">
             <span>{cartValue.toFixed(2).toString().replace('.', ',')}</span>
           </p>
-        )} */}
-        {!cartValue
-          ? <p />
-          : (
-            <p data-testid="customer_products__checkout-bottom-value">
-              <span>
-                {cartValue.toFixed(2).toString().replace('.', ',')}
-              </span>
-            </p>)}
+        )}
       </button>
     </div>
   );

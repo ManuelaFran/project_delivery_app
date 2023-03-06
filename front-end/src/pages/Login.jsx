@@ -7,7 +7,7 @@ function Login() {
   const [isButtonDisabled, setButtonDisabled] = useState(true);
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { client, handlerLogin } = useContext(UserContext);
+  const { client, handlerLogin, setClient } = useContext(UserContext);
 
   const verifyEmail = () => /\S+@\S+\.\S+/.test(email);
 
@@ -23,7 +23,11 @@ function Login() {
 
   useEffect(() => {
     verifyInputs();
-    if (client.user.token) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setClient({
+        user,
+      });
       navigate('/customer/products');
     }
     // eslint-disable-next-line

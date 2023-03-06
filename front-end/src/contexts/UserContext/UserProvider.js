@@ -110,6 +110,7 @@ function UserProvider({ children }) {
       handleRegisterInfoChange,
       handleRegister,
       client,
+      setClient,
     }),
     [
       handlerLogin,
@@ -117,6 +118,7 @@ function UserProvider({ children }) {
       handleRegisterInfoChange,
       handleRegister,
       client,
+      setClient,
     ],
   );
 
