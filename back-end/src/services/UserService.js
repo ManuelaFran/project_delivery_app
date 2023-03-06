@@ -1,6 +1,6 @@
 const md5 = require('md5');
 const { User } = require('../database/models');
-const jwt = require('../utils/jwt');
+const { createToken } = require('../utils/jwt');
 
 const findOneEmail = async (email) => {
   const user = await User.findOne({ where: { email } });
@@ -13,9 +13,11 @@ const createUser = async ({ email, name, password, role = 'customer' }) => {
   if (!newUser) {
     const err = new Error('It was not possible to register user');
     err.name = 'InternalServerError';
+    throw err;
   }
   const user = await findOneEmail(email);
-  return jwt.sing({ email: user.email, name: user.name, role: user.role });
+  const token = createToken({ email: user.email, name: user.name, role: user.role });
+  return { email: user.email, name: user.name, role: user.role, token };
 };
 
 module.exports = {

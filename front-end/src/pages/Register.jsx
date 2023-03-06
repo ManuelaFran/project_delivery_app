@@ -1,21 +1,21 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RegisterContext from '../contexts/RegisterContext/RegisterContext';
+import UserContext from '../contexts/UserContext/UserContext';
 
 const CREATESTATUS = 201;
 
 function Register() {
   const {
-    registerInfo,
+    client,
     handleRegisterInfoChange,
     handleRegister,
-    resultRegister,
-  } = useContext(RegisterContext);
+    registerInfo,
+  } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (resultRegister.status === CREATESTATUS) {
+    if (client.status === CREATESTATUS) {
       navigate('/customer/products');
     }
   });
@@ -31,7 +31,7 @@ function Register() {
             type="text"
             placeholder="Seu nome"
             data-testid="common_register__input-name"
-            value={ registerInfo.name }
+            value={ client.user.name }
             onChange={ handleRegisterInfoChange }
           />
         </label>
@@ -72,7 +72,7 @@ function Register() {
         </button>
       </form>
       <span data-testid="common_register__element-invalid_register">
-        {resultRegister.error}
+        {client.error}
       </span>
     </div>
   );
