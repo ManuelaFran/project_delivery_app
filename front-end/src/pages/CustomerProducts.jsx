@@ -55,13 +55,21 @@ export default function CustomerProducts() {
         disabled={ !cartValue }
         onClick={ handleCheckout }
       >
-        {!cartValue ? (
+        {/* {!cartValue ? (
           <p>Carrinho vazio</p>
         ) : (
           <p data-testid="customer_products__checkout-bottom-value">
             <span>{cartValue.toFixed(2).toString().replace('.', ',')}</span>
           </p>
-        )}
+        )} */}
+        {!cartValue
+          ? <p />
+          : (
+            <p data-testid="customer_products__checkout-bottom-value">
+              <span>
+                {cartValue.toFixed(2).toString().replace('.', ',')}
+              </span>
+            </p>)}
       </button>
     </div>
   );

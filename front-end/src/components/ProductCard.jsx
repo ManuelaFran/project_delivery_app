@@ -31,11 +31,10 @@ export default function ProductCard({ productDetails }) {
 
   return (
     <div>
-      <p data-testid={ `customer_products__element-card-price-${id}` }>{price}</p>
-      <p
-        data-testid={ `customer_products__element-card-price-${id}` }
-      >
-        {(Number(price).toFixed(2).toString()).replace('.', ',')}
+      <p>
+        <span data-testid={ `customer_products__element-card-price-${id}` }>
+          {(Number(price).toFixed(2).toString()).replace('.', ',')}
+        </span>
       </p>
       <img
         data-testid={ `customer_products__img-card-bg-image-${id}` }
