@@ -9,7 +9,7 @@ const NUMBER_12 = 12;
 function UserProvider({ children }) {
   const [client, setClient] = useState({
     status: '',
-    user: '',
+    user: {},
     error: '',
   });
 
@@ -19,6 +19,8 @@ function UserProvider({ children }) {
     password: '',
     valid: false,
   });
+
+  const [sellers, setSellers, setSellersError] = useState([]);
 
   const validateEmail = useCallback(
     () => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(registerInfo.email),
@@ -103,6 +105,24 @@ function UserProvider({ children }) {
     }
   }, []);
 
+  useEffect(() => { // recebe lista de pessoas vendedoras
+    const handlerSellers = async () => {
+      try {
+        const headers = { headers: { authorization: client.user.token } };
+        const allSellers = await axios.get(
+          'http://localhost:3001/seller',
+          headers,
+        );
+        setSellers(allSellers.data);
+      } catch (error) {
+        setSellersError(error.message);
+      }
+    };
+
+    handlerSellers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [client]);
+
   const memoizedValue = useMemo(
     () => ({
       handlerLogin,
@@ -111,6 +131,8 @@ function UserProvider({ children }) {
       handleRegister,
       client,
       setClient,
+      sellers,
+      setSellers,
     }),
     [
       handlerLogin,
@@ -119,6 +141,8 @@ function UserProvider({ children }) {
       handleRegister,
       client,
       setClient,
+      sellers,
+      setSellers,
     ],
   );
 
