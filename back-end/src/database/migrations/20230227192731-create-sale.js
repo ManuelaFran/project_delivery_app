@@ -32,6 +32,7 @@ module.exports = {
       totalPrice: {
         type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
+        field: "total_price",
       },
       deliveryAddress: {
         type: Sequelize.STRING,
