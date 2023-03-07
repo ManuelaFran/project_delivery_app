@@ -4,6 +4,7 @@ require('express-async-errors');
 const userRoute = require('../routes/UsersRoute');
 const loginRoute = require('../routes/LoginRoute');
 const productsRoute = require('../routes/ProductsRoute');
+const salesRoute = require('../routes/SalesRoute');
 const errorHandler = require('../middlewares/errorHandler');
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use('/login', loginRoute);
 app.use('/user', userRoute);
 app.use('/product', productsRoute);
+app.use('/sale', salesRoute);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 

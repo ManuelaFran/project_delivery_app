@@ -7,6 +7,11 @@ const findOneEmail = async (email) => {
   return user;
 };
 
+const findAllSellers = async () => {
+  const users = await User.findAll({ where: { role: 'seller' } });
+  return users;
+};
+
 const createUser = async ({ email, name, password, role = 'customer' }) => {
   const hash = md5(password);
   const newUser = await User.create({ email, name, role, password: hash });
@@ -23,4 +28,5 @@ const createUser = async ({ email, name, password, role = 'customer' }) => {
 module.exports = {
   createUser,
   findOneEmail,
+  findAllSellers,
 };

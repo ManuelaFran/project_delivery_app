@@ -5,6 +5,12 @@ const createUser = async (req, res) => {
   return res.status(201).json({ ...user });
 };
 
+const findAllSellers = async (_req, res) => {
+  const users = await userService.findAllSellers();
+  return res.status(200).json(users);
+};
+
 module.exports = {
     createUser,
+    findAllSellers,
 };
