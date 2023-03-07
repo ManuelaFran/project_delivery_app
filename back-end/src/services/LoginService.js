@@ -5,6 +5,7 @@ const { createToken } = require('../utils/jwt');
 const login = async ({ password, email }) => {
   const hash = md5(password);
   const result = await User.findOne({ where: { email, password: hash }, raw: true });
+  console.log(result)
   if (!result) {
     const err = new Error('Email or password not found');
     err.name = 'NotFoundError';
@@ -16,6 +17,7 @@ const login = async ({ password, email }) => {
     role: result.role,
   });
   return {
+    id: result.id,
     name: result.name,
     email: result.email,
     role: result.role,

@@ -22,7 +22,7 @@ const createUser = async ({ email, name, password, role = 'customer' }) => {
   }
   const user = await findOneEmail(email);
   const token = createToken({ email: user.email, name: user.name, role: user.role });
-  return { email: user.email, name: user.name, role: user.role, token };
+  return { email: user.email, name: user.name, role: user.role, token, id: user.id };
 };
 
 module.exports = {
