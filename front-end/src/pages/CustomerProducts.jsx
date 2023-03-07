@@ -39,6 +39,7 @@ export default function CustomerProducts() {
 
   return (
     <div>
+
       <Navbar />
       <div style={ { display: 'flex', flexWrap: 'wrap' } }>
         {loading ? (
@@ -65,6 +66,7 @@ export default function CustomerProducts() {
           </p>
         )}
       </button>
+
     </div>
   );
 }
