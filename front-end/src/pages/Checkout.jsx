@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckoutItem from '../components/CheckoutItem';
 import Navbar from '../components/NavBar';
 import CartContext from '../contexts/CartContext/CartContext';
+import UserContext from '../contexts/UserContext/UserContext';
 
 // Reqs 20 e 21
 export default function Checkout() {
@@ -14,6 +15,7 @@ export default function Checkout() {
     finishedOrder,
     finishSale,
   } = useContext(CartContext);
+  const { handlerSellers } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,10 @@ export default function Checkout() {
       navigate(`/customer/orders/${finishSale.id}`);
     }
   }, [finishSale, navigate]);
+
+  useEffect(() => {
+    handlerSellers();
+  }, []);
 
   const handlerSeller = ({ target }) => {
     setFinishedOrder({ ...finishedOrder, sellerId: target.id });

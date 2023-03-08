@@ -20,7 +20,7 @@ function UserProvider({ children }) {
     valid: false,
   });
 
-  const [sellers, setSellers, setSellersError] = useState([]);
+  const [sellers, setSellers] = useState([]);
 
   const validateEmail = useCallback(
     () => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(registerInfo.email),
@@ -105,23 +105,18 @@ function UserProvider({ children }) {
     }
   }, []);
 
-  useEffect(() => { // recebe lista de pessoas vendedoras
-    const handlerSellers = async () => {
-      try {
-        const headers = { headers: { authorization: client.user.token } };
-        const allSellers = await axios.get(
-          'http://localhost:3001/seller',
-          headers,
-        );
-        setSellers(allSellers.data);
-      } catch (error) {
-        setSellersError(error.message);
-      }
-    };
-
-    handlerSellers();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client]);
+  const handlerSellers = useCallback(async () => {
+    try {
+      const headers = { headers: { authorization: client.user.token } };
+      const allSellers = await axios.get(
+        'http://localhost:3001/user/seller',
+        headers,
+      );
+      setSellers(allSellers.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [client.user.token, setSellers]);
 
   const memoizedValue = useMemo(
     () => ({
@@ -133,6 +128,7 @@ function UserProvider({ children }) {
       setClient,
       sellers,
       setSellers,
+      handlerSellers,
     }),
     [
       handlerLogin,
@@ -143,6 +139,7 @@ function UserProvider({ children }) {
       setClient,
       sellers,
       setSellers,
+      handlerSellers,
     ],
   );
 

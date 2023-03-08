@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from './CartContext';
 import UserContext from '../UserContext/UserContext';
@@ -41,13 +41,16 @@ function CartProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    setFinishedOrder({
-      userId: client.user.id,
-      products: [...cart],
-      totalPrice: cartValue,
-      ...finishedOrder,
-    });
-  }, [client, cartValue, cart, finishedOrder]);
+    if (client.user) {
+      setFinishedOrder({
+        userId: client.user.id,
+        products: [...cart],
+        totalPrice: cartValue,
+        ...finishedOrder,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart, client, cartValue]);
 
   const handlerFinishOrder = useCallback(async () => {
     const headers = { headers: { authorization: client.user.token } };
