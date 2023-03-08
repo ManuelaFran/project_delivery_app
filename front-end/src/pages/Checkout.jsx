@@ -15,7 +15,7 @@ export default function Checkout() {
     finishedOrder,
     finishSale,
   } = useContext(CartContext);
-  const { handlerSellers } = useContext(UserContext);
+  const { handlerSellers, sellers } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export default function Checkout() {
 
   useEffect(() => {
     handlerSellers();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlerSeller = ({ target }) => {
@@ -45,9 +46,10 @@ export default function Checkout() {
       <h3>Finalizar pedido</h3>
       <Navbar />
       { cart.map((item, index) => (<CheckoutItem
-        key={ item.id }
+        key={ `${item.id}-checkout` }
         index={ index }
         itemDetails={ item }
+        page="customer_checkout"
       />)) }
       <h3>
         {'R$ '}
@@ -66,11 +68,16 @@ export default function Checkout() {
             id="seller_name"
             data-testid="customer_checkout__select-seller"
             onChange={ handlerSeller }
-            // value={}
+            value={ sellers }
           >
-            <option value="f">f</option>
-            <option value="c">c</option>
-            <option value="b">b</option>
+            {sellers.length > 0 && sellers.map((chooseSeller) => (
+              <option
+                key={ chooseSeller.id }
+                value={ chooseSeller.id }
+              >
+                {chooseSeller.name}
+              </option>
+            ))}
           </select>
         </label>
         <label htmlFor="order_address">
