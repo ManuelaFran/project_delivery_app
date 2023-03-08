@@ -100,7 +100,11 @@ export default function Checkout() {
             value={ finishedOrder.deliveryNumber }
           />
         </label>
-        <button type="button" data-testid="customer_checkout__button-submit-order">
+        <button
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+          onClick={ () => {} }
+        >
           FINALIZAR PEDIDO
         </button>
       </div>
