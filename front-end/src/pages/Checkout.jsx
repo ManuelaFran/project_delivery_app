@@ -14,6 +14,7 @@ export default function Checkout() {
     setFinishedOrder,
     finishedOrder,
     finishSale,
+    handlerFinishOrder,
   } = useContext(CartContext);
   const { handlerSellers, sellers } = useContext(UserContext);
   const navigate = useNavigate();
@@ -103,7 +104,7 @@ export default function Checkout() {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ () => {} }
+          onClick={ handlerFinishOrder() }
         >
           FINALIZAR PEDIDO
         </button>
