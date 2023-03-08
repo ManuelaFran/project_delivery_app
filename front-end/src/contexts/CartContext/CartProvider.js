@@ -5,7 +5,7 @@ import CartContext from './CartContext';
 import UserContext from '../UserContext/UserContext';
 
 function CartProvider({ children }) {
-  const { client } = useContext(UserContext);
+  const { client, sellers } = useContext(UserContext);
   const [products, setProducts] = useState();
   const [cart, setCart] = useState([]);
   const [cartValue, setCartValue] = useState(0);
@@ -14,7 +14,7 @@ function CartProvider({ children }) {
     sellerId: 0,
     totalPrice: 0,
     deliveryAddress: '',
-    deliveryNumber: 0,
+    deliveryNumber: '',
     products: [],
   });
   const [finishSale, setFinishSale] = useState({});
@@ -43,14 +43,15 @@ function CartProvider({ children }) {
   useEffect(() => {
     if (client.user) {
       setFinishedOrder({
+        ...finishedOrder,
+        sellerId: sellers.length > 0 ? sellers[0].id : 0,
         userId: client.user.id,
         products: [...cart],
-        totalPrice: cartValue,
-        ...finishedOrder,
+        totalPrice: Number(cartValue.toFixed(2)),
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart, client, cartValue]);
+  }, [cart, client, cartValue, finishSale]);
 
   const handlerFinishOrder = useCallback(async () => {
     const headers = { headers: { authorization: client.user.token } };
@@ -78,6 +79,8 @@ function CartProvider({ children }) {
       finishedOrder,
       handlerFinishOrder,
       finishSale,
+      setProducts,
+      setCart,
     ],
   );
 

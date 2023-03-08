@@ -31,7 +31,8 @@ export default function Checkout() {
   }, []);
 
   const handlerSeller = ({ target }) => {
-    setFinishedOrder({ ...finishedOrder, sellerId: target.id });
+    console.log(target.value);
+    setFinishedOrder({ ...finishedOrder, sellerId: Number(target.value) });
   };
 
   const handlerAddress = ({ target }) => {
@@ -44,6 +45,7 @@ export default function Checkout() {
 
   return (
     <div>
+      {console.log(finishedOrder, cart)}
       <h3>Finalizar pedido</h3>
       <Navbar />
       { cart.map((item, index) => (<CheckoutItem
@@ -69,7 +71,6 @@ export default function Checkout() {
             id="seller_name"
             data-testid="customer_checkout__select-seller"
             onChange={ handlerSeller }
-            value={ sellers }
           >
             {sellers.length > 0 && sellers.map((chooseSeller) => (
               <option
@@ -104,7 +105,7 @@ export default function Checkout() {
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
-          onClick={ handlerFinishOrder() }
+          onClick={ handlerFinishOrder }
         >
           FINALIZAR PEDIDO
         </button>

@@ -18,7 +18,7 @@ const createSale = async (data) => {
   const saleAndDate = {
     ...data,
     saleDate: adjustHours(),
-    status: !data.status ? 'pendente' : data.status,
+    status: !data.status ? 'Pendente' : data.status,
 };
   const newSale = await Sale.create({ ...saleAndDate });
   if (!newSale) {
