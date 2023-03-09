@@ -83,6 +83,29 @@ function UserProvider({ children }) {
     }
   }, [registerInfo]);
 
+  const handleRegisterWithRole = useCallback(async ({ nome, email, password, role }) => {
+    try {
+      const response = await axios.post('http://localhost:3001/user/register', {
+        nome,
+        email,
+        password,
+        role,
+      });
+      localStorage.setItem('user', JSON.stringify(response.data));
+      setClient({
+        status: response.status,
+        user: response.data,
+        error: '',
+      });
+    } catch (error) {
+      setClient({
+        status: error.status,
+        user: '',
+        error: error.message,
+      });
+    }
+  }, []);
+
   const handlerLogin = useCallback(async ({ email, password }) => {
     try {
       const response = await axios.post('http://localhost:3001/login', {
@@ -124,6 +147,7 @@ function UserProvider({ children }) {
       registerInfo,
       handleRegisterInfoChange,
       handleRegister,
+      handleRegisterWithRole,
       client,
       setClient,
       sellers,
@@ -135,6 +159,7 @@ function UserProvider({ children }) {
       registerInfo,
       handleRegisterInfoChange,
       handleRegister,
+      handleRegisterWithRole,
       client,
       setClient,
       sellers,
