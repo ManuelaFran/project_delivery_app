@@ -16,7 +16,7 @@ const createUser = async ({ email, name, password, role = 'customer' }) => {
   const hash = md5(password);
   const newUser = await User.create({ email, name, role, password: hash });
   if (!newUser) {
-    const err = new Error('It was not possible to register user');
+    const err = new Error('It was not possible to register user'); 
     err.name = 'InternalServerError';
     throw err;
   }
