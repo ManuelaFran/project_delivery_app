@@ -17,6 +17,7 @@ function UserProvider({ children }) {
     name: '',
     email: '',
     password: '',
+    role: 'seller',
     valid: false,
   });
 
@@ -31,13 +32,17 @@ function UserProvider({ children }) {
     [registerInfo],
   );
   const validatePassWord = useCallback(
-    () => registerInfo.password.length >= NUMBER_5,
+    () => registerInfo.password.length > NUMBER_5,
+    [registerInfo],
+  );
+  const validateRole = useCallback(
+    () => registerInfo.role === '',
     [registerInfo],
   );
 
   const validateRegister = useCallback(
-    () => validateEmail() && validateName() && validatePassWord(),
-    [validateEmail, validateName, validatePassWord],
+    () => validateEmail() && validateName() && validatePassWord() && validateRole,
+    [validateEmail, validateName, validatePassWord, validateRole],
   );
 
   const handleRegisterInfoChange = useCallback(
@@ -83,14 +88,19 @@ function UserProvider({ children }) {
     }
   }, [registerInfo]);
 
-  const handleRegisterWithRole = useCallback(async ({ nome, email, password, role }) => {
+  const handleRegisterWithRole = useCallback(async (event) => {
+    event.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem('user')) || '';
     try {
+      const { name, email, password, role } = registerInfo;
       const response = await axios.post('http://localhost:3001/user/register', {
-        nome,
+        name,
         email,
         password,
         role,
-      });
+      }, { headers: {
+        Authorization: token,
+      } });
       localStorage.setItem('user', JSON.stringify(response.data));
       setClient({
         status: response.status,
@@ -104,7 +114,7 @@ function UserProvider({ children }) {
         error: error.message,
       });
     }
-  }, []);
+  }, [registerInfo]);
 
   const handlerLogin = useCallback(async ({ email, password }) => {
     try {

@@ -1,50 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext/UserContext';
 
 function Admin() {
-  const [nome, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('Vendedor');
-  const [isButtonDisabled, setButtonDisabled] = useState(true);
-  const { handleRegisterWithRole } = useContext(UserContext);
-
-  const verifyName = () => nome.length > Number('11');
-  const verifyEmail = () => /\S+@\S+\.\S+/.test(email);
-  const verifyPassword = () => password.length > Number('5');
-  const verifyRole = () => role.length > Number('0');
-
-  const verifyInputs = () => {
-    if (verifyName() && verifyEmail() && verifyPassword() && verifyRole) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  };
-
-  useEffect(() => {
-    verifyInputs();
-  });
-
-  const handleInput = ({ target }) => {
-    const { value, name } = target;
-    if (name === 'nome') setName(value);
-    if (name === 'email') setEmail(value);
-    if (name === 'password') setPassword(value);
-    if (name === 'role') setRole(value);
-  };
+  const {
+    handleRegisterWithRole,
+    handleRegisterInfoChange,
+    registerInfo,
+  } = useContext(UserContext);
 
   return (
     <div>
       <h1>Cadastro novo usuário</h1>
-      <form>
+      <form
+        onSubmit={ handleRegisterWithRole }
+      >
         <label htmlFor="name">
           <input
-            value={ nome }
-            onChange={ handleInput }
+            value={ registerInfo.name }
+            onChange={ handleRegisterInfoChange }
             type="text"
             id="name"
-            name="nome"
+            name="name"
             placeholder="Nome e sobrenome"
             data-testid="admin_manage__input-name"
           />
@@ -52,8 +28,8 @@ function Admin() {
 
         <label htmlFor="email">
           <input
-            value={ email }
-            onChange={ handleInput }
+            value={ registerInfo.email }
+            onChange={ handleRegisterInfoChange }
             type="email"
             name="email"
             id="email"
@@ -64,8 +40,8 @@ function Admin() {
 
         <label htmlFor="password">
           <input
-            value={ password }
-            onChange={ handleInput }
+            value={ registerInfo.password }
+            onChange={ handleRegisterInfoChange }
             type="password"
             name="password"
             id="password"
@@ -76,8 +52,8 @@ function Admin() {
 
         <label htmlFor="role">
           <select
-            value={ role }
-            onChange={ handleInput }
+            value={ registerInfo.role }
+            onChange={ handleRegisterInfoChange }
             name="role"
             id="role"
             data-testid="admin_manage__select-role"
@@ -89,8 +65,7 @@ function Admin() {
         </label>
 
         <button
-          disabled={ isButtonDisabled }
-          onSubmit={ handleRegisterWithRole }
+          disabled={ !registerInfo.valid }
           type="submit"
           data-testid="admin_manage__button-register"
         >
@@ -98,6 +73,32 @@ function Admin() {
         </button>
       </form>
       <span data-testid="admin_manage__element-invalid-register" />
+      <h2> Lista de Usuário</h2>
+      <table>
+        <thead>
+          <tr>
+            <th> Item </th>
+            <th> Nome </th>
+            <th> E-mail </th>
+            <th> Tipo </th>
+            <th> Excluir </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-testid="admin_manage__element-user-table-item-number-" />
+            <td data-testid="admin_manage__element-user-table-name-" />
+            <td data-testid="admin_manage__element-user-table-email-" />
+            <td data-testid="admin_manage__element-user-table-role-" />
+            <button
+              type="button"
+              data-testid="admin_manage__element-user-table-remove-"
+            >
+              Excluir
+            </button>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
