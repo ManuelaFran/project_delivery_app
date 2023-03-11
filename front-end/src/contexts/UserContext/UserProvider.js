@@ -32,22 +32,24 @@ function UserProvider({ children }) {
     [registerInfo],
   );
   const validatePassWord = useCallback(
-    () => registerInfo.password.length > NUMBER_5,
-    [registerInfo],
-  );
-  const validateRole = useCallback(
-    () => registerInfo.role === '',
+    () => registerInfo.password.length >= NUMBER_5,
     [registerInfo],
   );
 
   const validateRegister = useCallback(
-    () => validateEmail() && validateName() && validatePassWord() && validateRole,
-    [validateEmail, validateName, validatePassWord, validateRole],
+    () => validateEmail() && validateName() && validatePassWord(),
+    [validateEmail, validateName, validatePassWord],
   );
 
   const handleRegisterInfoChange = useCallback(
     (event) => {
       const { name, value } = event.target;
+      if (name === 'role') {
+        setRegisterInfo((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
       if (validateRegister()) {
         setRegisterInfo((prevState) => ({
           ...prevState,
@@ -64,6 +66,16 @@ function UserProvider({ children }) {
     },
     [validateRegister],
   );
+
+  const handleRole = useCallback((event) => {
+    const { name, value } = event.target;
+    if (name === 'role') {
+      setRegisterInfo((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  }, []);
 
   const handleRegister = useCallback(async () => {
     try {
@@ -158,6 +170,7 @@ function UserProvider({ children }) {
       handleRegisterInfoChange,
       handleRegister,
       handleRegisterWithRole,
+      handleRole,
       client,
       setClient,
       sellers,
@@ -170,6 +183,7 @@ function UserProvider({ children }) {
       handleRegisterInfoChange,
       handleRegister,
       handleRegisterWithRole,
+      handleRole,
       client,
       setClient,
       sellers,

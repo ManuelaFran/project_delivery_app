@@ -6,6 +6,7 @@ function Admin() {
     handleRegisterWithRole,
     handleRegisterInfoChange,
     registerInfo,
+    handleRole,
   } = useContext(UserContext);
 
   return (
@@ -53,7 +54,7 @@ function Admin() {
         <label htmlFor="role">
           <select
             value={ registerInfo.role }
-            onChange={ handleRegisterInfoChange }
+            onChange={ handleRole }
             name="role"
             id="role"
             data-testid="admin_manage__select-role"
