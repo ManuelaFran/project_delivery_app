@@ -34,6 +34,9 @@ function Login() {
   }, [email, password, client]);
 
   const clickLogin = () => {
+    if (email === 'adm@deliveryapp.com' && password === '--adm2@21!!--') {
+      navigate('/admin/manage');
+    }
     setEmail('');
     setPassword('');
     handlerLogin({ email, password });

@@ -11,11 +11,10 @@ const login = async ({ password, email }) => {
     throw err;
   }
   const token = createToken({
-    name: result.name,
-    email: result.email,
-    role: result.role,
+    name: result.name, email: result.email, role: result.role,
   });
   return {
+    id: result.id,
     name: result.name,
     email: result.email,
     role: result.role,
