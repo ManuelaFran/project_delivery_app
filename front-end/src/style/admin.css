@@ -20,4 +20,7 @@ td {
   width: 200px;
   height: 40px;
   margin-left: 30px;
+  color: #036B52;
+  background-color: #E5E5E5;
+  border: 1.5px solid #036B52;
 }

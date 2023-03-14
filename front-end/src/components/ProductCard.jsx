@@ -30,41 +30,57 @@ export default function ProductCard({ productDetails }) {
   }, [quantity]);
 
   return (
-    <div>
+    <div className="product">
       <p>
-        <span data-testid={ `customer_products__element-card-price-${id}` }>
+        <span
+          className="price"
+          data-testid={ `customer_products__element-card-price-${id}` }
+        >
           {(Number(price).toFixed(2).toString()).replace('.', ',')}
         </span>
       </p>
-      <img
-        data-testid={ `customer_products__img-card-bg-image-${id}` }
-        className="product-card-image"
-        src={ urlImage }
-        alt={ name }
-        style={ { width: '60px' } }
-      />
-      <p data-testid={ `customer_products__element-card-title-${id}` }>{name}</p>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        type="button"
-        onClick={ removeProducts }
+      <div className="img">
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          className="product-card-image"
+          src={ urlImage }
+          alt={ name }
+          style={ { width: '60px' } }
+        />
+      </div>
+      <p
+        className="product-name"
+        data-testid={ `customer_products__element-card-title-${id}` }
       >
-        -
-      </button>
-      <input
-        type="number"
-        value={ quantity }
-        min="0"
-        onChange={ ({ target }) => setQuantity(Number(target.value)) }
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        type="button"
-        onClick={ addProducts }
-      >
-        +
-      </button>
+        {name}
+
+      </p>
+      <div className="add-remove-box">
+        <button
+          className="add-remove-btn"
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          type="button"
+          onClick={ removeProducts }
+        >
+          -
+        </button>
+        <input
+          className="number"
+          type="number"
+          value={ quantity }
+          min="0"
+          onChange={ ({ target }) => setQuantity(Number(target.value)) }
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+        />
+        <button
+          className="add-remove-btn"
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ addProducts }
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }

@@ -88,7 +88,7 @@ function Admin() {
             <th className="span-admin"> Nome </th>
             <th className="span-admin"> E-mail </th>
             <th className="span-admin"> Tipo </th>
-            <th className="span-admin"> Excluir </th>
+            <th className="span-admin"> </th>
           </tr>
         </thead>
         <tbody>
@@ -99,6 +99,7 @@ function Admin() {
             <td data-testid="admin_manage__element-user-table-role-" />
             <button
               type="button"
+              className="btn-admin"
               data-testid="admin_manage__element-user-table-remove-"
             >
               Excluir

@@ -4,6 +4,7 @@ import NavCustomerProducts from './NavCustomerProducts';
 import UserContext from '../contexts/UserContext/UserContext';
 import NavSellerOrder from './NavSellerOrder';
 import NavManage from './NavManage';
+import '../style/products.css';
 
 export default function Navbar() {
   const { client, setClient } = useContext(UserContext);
@@ -26,11 +27,13 @@ export default function Navbar() {
       {client.user.role === 'seller' && <NavSellerOrder />}
       {client.user.role === 'admin' && <NavManage />}
       <p
+        className="client-name"
         data-testid="customer_products__element-navbar-user-full-name"
       >
         {`${client.user.name}`}
       </p>
       <button
+        className="btn-logout"
         data-testid="customer_products__element-navbar-link-logout"
         type="button"
         onClick={ handleLogout }

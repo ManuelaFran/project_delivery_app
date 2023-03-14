@@ -5,6 +5,7 @@ import Navbar from '../components/NavBar';
 import CartContext from '../contexts/CartContext/CartContext';
 import ProductCard from '../components/ProductCard';
 import UserContext from '../contexts/UserContext/UserContext';
+import '../style/products.css';
 
 export default function CustomerProducts() {
   const [loading, setLoading] = useState(true);
@@ -38,9 +39,9 @@ export default function CustomerProducts() {
   }, [client]);
 
   return (
-    <div>
+    <div className="products-box">
       <Navbar />
-      <div style={ { display: 'flex', flexWrap: 'wrap' } }>
+      <div className="box" style={ { display: 'flex', flexWrap: 'wrap' } }>
         {loading ? (
           <h1>Loading...</h1>
         ) : (
@@ -61,7 +62,10 @@ export default function CustomerProducts() {
           <p />
         ) : (
           <p data-testid="customer_products__checkout-bottom-value">
-            <span>{cartValue.toFixed(2).toString().replace('.', ',')}</span>
+            <span>
+              {cartValue.toFixed(2).toString().replace('.', ',')}
+
+            </span>
           </p>
         )}
       </button>
