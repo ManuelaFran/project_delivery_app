@@ -1,0 +1,23 @@
+.cadastrar-admin {
+  width: auto;
+  height: 1000px;
+}
+
+.span-admin {
+  color: white;
+  padding: 5px;
+}
+
+h1, h2 {
+  color: white;
+}
+
+td {
+  width: 310px;
+}
+
+.btn-admin {
+  width: 200px;
+  height: 40px;
+  margin-left: 30px;
+}

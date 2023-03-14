@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../contexts/UserContext/UserContext';
+import '../style/login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -55,7 +56,7 @@ function Login() {
   return (
     <div className="Login">
       <form className="login-form">
-        <h1>App de Delivery</h1>
+        <h1 className="title">OverDelivery</h1>
         <label htmlFor="email">
           <span>Login</span>
           <input
@@ -65,11 +66,11 @@ function Login() {
             data-testid="common_login__input-email"
             name="email"
             onChange={ handleInput }
-            placeholder="E-mail"
+            placeholder="seu-email@site.com.br"
           />
         </label>
         <label htmlFor="password">
-          <span>Password</span>
+          <span>Senha</span>
           <input
             value={ password }
             id="password"
@@ -77,7 +78,7 @@ function Login() {
             onChange={ handleInput }
             data-testid="common_login__input-password"
             name="password"
-            placeholder="Senha"
+            placeholder="**********"
           />
         </label>
         <button
@@ -87,7 +88,7 @@ function Login() {
           className="login-btn"
           data-testid="common_login__button-login"
         >
-          Login
+          LOGIN
         </button>
         <button
           className="cadastrar"

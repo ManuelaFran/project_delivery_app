@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext/UserContext';
+import '../style/admin.css';
 
 function Admin() {
   const {
@@ -10,12 +11,13 @@ function Admin() {
   } = useContext(UserContext);
 
   return (
-    <div>
+    <div className="cadastrar-admin">
       <h1>Cadastro novo usuário</h1>
       <form
         onSubmit={ handleRegisterWithRole }
       >
         <label htmlFor="name">
+          <span className="span-admin">Nome</span>
           <input
             value={ registerInfo.name }
             onChange={ handleRegisterInfoChange }
@@ -28,6 +30,7 @@ function Admin() {
         </label>
 
         <label htmlFor="email">
+          <span className="span-admin">Email</span>
           <input
             value={ registerInfo.email }
             onChange={ handleRegisterInfoChange }
@@ -40,6 +43,7 @@ function Admin() {
         </label>
 
         <label htmlFor="password">
+          <span className="span-admin">Senha</span>
           <input
             value={ registerInfo.password }
             onChange={ handleRegisterInfoChange }
@@ -52,6 +56,7 @@ function Admin() {
         </label>
 
         <label htmlFor="role">
+          <span className="span-admin">Tipo</span>
           <select
             value={ registerInfo.role }
             onChange={ handleRole }
@@ -66,6 +71,7 @@ function Admin() {
         </label>
 
         <button
+          className="btn-admin"
           disabled={ !registerInfo.valid }
           type="submit"
           data-testid="admin_manage__button-register"
@@ -74,15 +80,15 @@ function Admin() {
         </button>
       </form>
       <span data-testid="admin_manage__element-invalid-register" />
-      <h2> Lista de Usuário</h2>
+      <h2> Lista de Usuários</h2>
       <table>
         <thead>
           <tr>
-            <th> Item </th>
-            <th> Nome </th>
-            <th> E-mail </th>
-            <th> Tipo </th>
-            <th> Excluir </th>
+            <th className="span-admin"> Item </th>
+            <th className="span-admin"> Nome </th>
+            <th className="span-admin"> E-mail </th>
+            <th className="span-admin"> Tipo </th>
+            <th className="span-admin"> Excluir </th>
           </tr>
         </thead>
         <tbody>

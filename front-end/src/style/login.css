@@ -1,0 +1,62 @@
+.Login {
+  width: 250px;
+  offset: 0px 10px;
+  height: 350px;
+  background-color: #E5E5E5;
+  border: 0.5px transparent gray;
+  border-radius: 2px;
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: center;
+}
+
+.cadastro {
+  text-align: center;
+  color: #036B52;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+input, select {
+  width: 230px;
+  padding-left: 20px;
+  height: 40px;
+  border-radius: 5px;
+  border: 0.5px solid gray;
+  margin-bottom: 15px;
+  margin-top: 2px;
+  font-size: large;
+}
+
+label {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.title {
+  text-align: center;
+  color: #036B52;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  background-color: #036B52;
+  color: white;
+  width: 253px;
+  height: 35px;
+  margin-top: 10px;
+  font-size: large;
+}
+
+button:hover {
+  filter: brightness(80%);
+  cursor: pointer;
+}
+
+.cadastrar {
+  color: #036B52;
+  background-color: #E5E5E5;
+  border: 1.5px solid #036B52;
+}

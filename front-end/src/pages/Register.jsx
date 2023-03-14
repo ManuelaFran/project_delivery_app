@@ -21,9 +21,10 @@ function Register() {
   });
 
   return (
-    <div>
+    <div className="Login">
       <form action="">
-        <label htmlFor="name">
+        <h2 className="cadastro">Cadastro</h2>
+        <label className="nome" htmlFor="name">
           Nome
           <input
             id="name"
